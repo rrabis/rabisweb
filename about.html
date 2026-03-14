@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Matěj Ráb · Brand & Visual Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ─────────────────────────────────────────── */
+:root {
+  --bg:      #09090b;
+  --bg2:     #0f0f12;
+  --surface: #18181d;
+  --border:  rgba(255,255,255,0.07);
+  --acid:    #c8ff00;
+  --violet:  #7b61ff;
+  --text:    #f0efe8;
+  --muted:   #5a5a6a;
+  --muted2:  #3a3a48;
+  --font-d:  'Syne', sans-serif;
+  --font-b:  'DM Sans', sans-serif;
+  --r:       16px;
+  --ease:    cubic-bezier(0.16,1,0.3,1);
+}
+
+/* ── RESET ───────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--text);font-family:var(--font-b);font-weight:300;line-height:1.6;overflow-x:hidden}
+body.custom-cursor,body.custom-cursor *{cursor:none!important}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+
+/* ── NOISE OVERLAY ───────────────────────────────────── */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:.3}
+
+/* ── CUSTOM CURSOR ───────────────────────────────────── */
+.cursor{width:8px;height:8px;background:var(--acid);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transition:transform .15s ease;mix-blend-mode:difference}
+.cursor-ring{width:32px;height:32px;border:1px solid rgba(200,255,0,.35);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transition:all .4s var(--ease)}
+@media (hover:none){.cursor,.cursor-ring{display:none}body{cursor:auto}}
+
+/* ── NAV ─────────────────────────────────────────────── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:20px 48px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);background:rgba(9,9,11,.75);border-bottom:1px solid var(--border);transition:padding .3s}
+.nav-logo{font-family:var(--font-d);font-weight:800;font-size:17px;letter-spacing:-.5px}
+.nav-logo span{color:var(--acid)}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-links a.active{color:var(--acid)}
+.nav-right{display:flex;align-items:center;gap:20px}
+.nav-cta{font-family:var(--font-d);font-size:12px;font-weight:700;padding:9px 20px;background:var(--acid);color:#000;border-radius:100px;letter-spacing:.02em;transition:opacity .2s,transform .2s}
+.nav-cta:hover{opacity:.85;transform:scale(.97)}
+.nav-burger{display:none;flex-direction:column;gap:5px;cursor:none;padding:4px;background:none;border:none}
+.nav-burger span{display:block;width:22px;height:1.5px;background:var(--text);border-radius:2px;transition:all .3s}
+.nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-burger.open span:nth-child(2){opacity:0}
+.nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* Mobile nav drawer */
+.mobile-nav{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:490;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;opacity:0;pointer-events:none;transition:opacity .3s}
+.mobile-nav.open{opacity:1;pointer-events:all}
+.mobile-nav a{font-family:var(--font-d);font-size:32px;font-weight:800;color:var(--muted);letter-spacing:-.02em;transition:color .2s}
+.mobile-nav a:hover{color:var(--text)}
+.mobile-nav .m-cta{font-size:16px;padding:14px 36px;background:var(--acid);color:#000;border-radius:100px;font-weight:700}
+
+/* ── PAGE HEADER ─────────────────────────────────────── */
+.page-header{padding:148px 48px 80px;position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
+.page-header-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 80% 50%,rgba(200,255,0,.06) 0%,transparent 65%),radial-gradient(ellipse 40% 50% at 10% 80%,rgba(123,97,255,.08) 0%,transparent 60%);pointer-events:none}
+.page-header-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:80px 80px;pointer-events:none;mask-image:radial-gradient(ellipse 80% 100% at 100% 50%,black 0%,transparent 80%)}
+.page-header-inner{position:relative;max-width:880px}
+.page-eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.page-eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--acid)}
+.page-title{font-family:var(--font-d);font-size:clamp(42px,5.5vw,76px);font-weight:800;line-height:.93;letter-spacing:-.04em;margin-bottom:28px}
+.page-title .acc{color:var(--acid)}
+.page-lead{font-size:17px;color:var(--muted);line-height:1.75;max-width:560px;border-left:2px solid var(--acid);padding-left:20px}
+.page-lead strong{color:var(--text);font-weight:400}
+
+/* ── SECTION UTILS ────────────────────────────────────── */
+.section-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--acid);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.section-label::before{content:'';display:block;width:28px;height:1px;background:var(--acid)}
+.section-title{font-family:var(--font-d);font-size:clamp(28px,3vw,44px);font-weight:800;line-height:1.05;letter-spacing:-.025em;margin-bottom:40px}
+
+/* ── BIO SECTION ─────────────────────────────────────── */
+.bio-section{padding:96px 48px;background:var(--bg2);border-bottom:1px solid var(--border)}
+.bio-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+
+.bio-text p{color:var(--muted);font-size:15px;margin-bottom:20px;line-height:1.85}
+.bio-text p strong{color:var(--text);font-weight:400}
+.bio-text p:first-child{font-size:16px;color:var(--text)}
+
+/* Scale number accent */
+.bio-scale{margin-top:36px;display:flex;gap:28px;flex-wrap:wrap}
+.bio-num{text-align:center}
+.bio-num-val{font-family:var(--font-d);font-size:42px;font-weight:800;color:var(--acid);line-height:1}
+.bio-num-label{font-size:11px;color:var(--muted);margin-top:5px;letter-spacing:.05em}
+
+/* Specialisation block */
+.spec-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:28px}
+.spec-block + .spec-block{margin-top:14px}
+.spec-icon{width:36px;height:36px;border-radius:10px;background:rgba(200,255,0,.08);border:1px solid rgba(200,255,0,.14);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.spec-icon svg{color:var(--acid)}
+.spec-title{font-family:var(--font-d);font-size:15px;font-weight:700;margin-bottom:6px}
+.spec-desc{font-size:13px;color:var(--muted);line-height:1.7}
+.spec-tag{display:inline-block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:100px;background:rgba(200,255,0,.07);color:var(--acid);border:1px solid rgba(200,255,0,.15);margin-top:10px}
+
+/* ── WHY WORK WITH ME ────────────────────────────────── */
+.why-section{padding:96px 48px;background:var(--bg)}
+.why-intro{max-width:600px;margin-bottom:64px}
+.why-intro p{font-size:15px;color:var(--muted);line-height:1.8}
+
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.why-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:28px 24px;transition:border-color .3s,transform .3s;position:relative;overflow:hidden}
+.why-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--acid);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.why-card:hover{border-color:rgba(200,255,0,.18);transform:translateY(-4px)}
+.why-card:hover::before{transform:scaleX(1)}
+
+.why-num{font-family:var(--font-d);font-size:11px;font-weight:700;color:var(--muted2);letter-spacing:.12em;margin-bottom:20px}
+.why-icon{width:44px;height:44px;border-radius:12px;background:rgba(200,255,0,.06);border:1px solid rgba(200,255,0,.12);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.why-icon svg{color:var(--acid)}
+.why-title{font-family:var(--font-d);font-size:18px;font-weight:800;letter-spacing:-.02em;margin-bottom:10px;line-height:1.2}
+.why-desc{font-size:13px;color:var(--muted);line-height:1.75}
+.why-desc strong{color:var(--text);font-weight:400}
+
+/* ── M&A TURNKEY FEATURE ─────────────────────────────── */
+.turnkey-section{padding:80px 48px;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.turnkey-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.turnkey-content .section-label{margin-bottom:20px}
+.turnkey-title{font-family:var(--font-d);font-size:clamp(28px,3vw,44px);font-weight:800;letter-spacing:-.025em;line-height:1.05;margin-bottom:20px}
+.turnkey-title .acc{color:var(--acid)}
+.turnkey-desc{font-size:15px;color:var(--muted);line-height:1.85;margin-bottom:32px}
+.turnkey-desc strong{color:var(--text);font-weight:400}
+.turnkey-cta{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-d);font-size:13px;font-weight:700;padding:12px 26px;background:var(--acid);color:#000;border-radius:100px;transition:all .25s}
+.turnkey-cta:hover{transform:scale(.97);opacity:.88}
+
+/* Process steps */
+.process-steps{display:flex;flex-direction:column;gap:0}
+.process-step{display:flex;gap:20px;padding:20px 0;border-bottom:1px solid var(--border);position:relative}
+.process-step:first-child{border-top:1px solid var(--border)}
+.process-step-num{font-family:var(--font-d);font-size:11px;font-weight:700;color:var(--acid);min-width:28px;padding-top:3px;letter-spacing:.08em}
+.process-step-content{}
+.process-step-title{font-family:var(--font-d);font-size:14px;font-weight:700;margin-bottom:3px}
+.process-step-desc{font-size:12px;color:var(--muted);line-height:1.65}
+
+/* ── STATS BAND ──────────────────────────────────────── */
+.stats-band{padding:64px 48px;background:var(--bg);border-bottom:1px solid var(--border)}
+.stats-band-inner{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.stat-col{background:var(--bg);padding:32px 24px;text-align:center}
+.stat-col-num{font-family:var(--font-d);font-size:52px;font-weight:800;line-height:1;color:var(--acid);margin-bottom:6px}
+.stat-col-label{font-size:12px;color:var(--muted);letter-spacing:.04em}
+.stat-col-sub{font-size:11px;color:var(--muted2);margin-top:4px}
+
+/* ── CONTACT CTA ─────────────────────────────────────── */
+.contact-section{padding:112px 48px;background:var(--bg);text-align:center;position:relative;overflow:hidden}
+.contact-bg{position:absolute;inset:0;background:radial-gradient(ellipse 75% 55% at 50% 100%,rgba(123,97,255,.1) 0%,transparent 70%);pointer-events:none}
+.contact-section .section-label{justify-content:center}
+.contact-section .section-label::before{display:none}
+.contact-big{font-family:var(--font-d);font-size:clamp(44px,7.5vw,104px);font-weight:800;line-height:.93;letter-spacing:-.04em;margin-bottom:48px}
+.contact-big .outline{-webkit-text-stroke:1px rgba(255,255,255,.15);color:transparent}
+.contact-email{display:inline-flex;align-items:center;gap:11px;font-family:var(--font-d);font-size:16px;font-weight:700;color:var(--text);padding:14px 32px;border:1px solid var(--border);border-radius:100px;transition:all .3s}
+.contact-email:hover{background:var(--acid);color:#000;border-color:var(--acid)}
+.contact-sub{font-size:13px;color:var(--muted);margin-top:16px}
+
+/* ── FOOTER ───────────────────────────────────────────── */
+footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--bg2)}
+.f-logo{font-family:var(--font-d);font-weight:800;font-size:15px}
+.f-logo span{color:var(--acid)}
+.f-copy{font-size:12px;color:var(--muted)}
+.f-gradin{font-size:12px;color:var(--muted)}
+.f-gradin span{color:#a890ff}
+
+/* ── REVEAL ───────────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ───────────────────────────────────────── */
+@media (max-width:1024px){
+  .page-header{padding:128px 40px 72px}
+  .bio-section,.why-section,.turnkey-section,.stats-band,.contact-section{padding:72px 40px}
+  .bio-grid,.turnkey-inner{gap:48px}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .stats-band-inner{grid-template-columns:1fr 1fr}
+}
+
+@media (max-width:768px){
+  nav{padding:18px 24px}
+  .nav-links,.nav-cta{display:none}
+  .nav-burger{display:flex}
+  .page-header{padding:108px 24px 60px}
+  .bio-section,.why-section,.turnkey-section,.stats-band,.contact-section{padding:64px 24px}
+  .bio-grid,.turnkey-inner{grid-template-columns:1fr;gap:44px}
+  .why-grid{grid-template-columns:1fr}
+  footer{padding:24px;flex-direction:column;gap:10px;text-align:center}
+}
+
+@media (max-width:520px){
+  nav{padding:16px 20px}
+  .stats-band-inner{grid-template-columns:1fr 1fr}
+  .stat-col-num{font-size:38px}
+  .contact-big{font-size:clamp(36px,13vw,64px)}
+  .contact-email{font-size:14px;padding:12px 24px}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="index.html" onclick="closeNav()">Home</a>
+  <a href="index.html#portfolio" onclick="closeNav()">Portfolio</a>
+  <a href="about.html" onclick="closeNav()">About</a>
+  <a href="#contact" onclick="closeNav()">Contact</a>
+  <a href="mailto:studio@matejrab.cz" class="m-cta">Let's talk</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">M<span>.</span>RÁB</a>
+  <div class="nav-right">
+    <a href="mailto:matej@rab.design" class="nav-cta">Let's talk</a>
+  </div>
+  <button class="nav-burger" id="burger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="page-header-bg"></div>
+  <div class="page-header-grid"></div>
+  <div class="page-header-inner">
+    <div class="page-eyebrow">About me</div>
+    <h1 class="page-title">Senior Brand &amp;<br><span class="acc">Visual Designer</span><br>for Industry.</h1>
+    <p class="page-lead">
+      I specialize in building visual identities that <strong>command trust in high-stakes environments</strong> — for companies where design isn't decoration, it's a business asset.
+    </p>
+  </div>
+</section>
+
+<!-- BIO SECTION -->
+<section class="bio-section">
+  <div class="bio-grid">
+    <div class="reveal">
+      <div class="section-label">Background</div>
+      <div class="bio-text">
+        <p>For the past several years, I have served as a <strong>Senior Designer for Enteria</strong>, a leading industrial holding with an annual turnover exceeding 10 billion CZK (€400M+).</p>
+        <p>My core expertise lies in managing the <strong>visual complexity of large-scale industrial groups</strong>. I don't just design logos; I build systems that work across thousands of employees and dozens of subsidiaries.</p>
+        <p>Based in Pardubice, Czech Republic. Working across Czech, Slovak, and international markets.</p>
+      </div>
+      <div class="bio-scale">
+        <div class="bio-num">
+          <div class="bio-num-val">10B+</div>
+          <div class="bio-num-label">CZK client turnover</div>
+        </div>
+        <div class="bio-num">
+          <div class="bio-num-val">1K+</div>
+          <div class="bio-num-label">Employees reached</div>
+        </div>
+        <div class="bio-num">
+          <div class="bio-num-val">60+</div>
+          <div class="bio-num-label">Projects delivered</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="transition-delay:.1s">
+      <div class="section-label">Specialisation</div>
+      <div class="spec-block">
+        <div class="spec-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <rect x="1.5" y="1.5" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+            <rect x="10.5" y="1.5" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+            <rect x="1.5" y="10.5" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+            <rect x="10.5" y="10.5" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+          </svg>
+        </div>
+        <div class="spec-title">Strategic Identity Integration</div>
+        <div class="spec-desc">Managing visual complexity across large-scale industrial groups — from holding level down to every subsidiary touchpoint.</div>
+        <span class="spec-tag">Brand Systems</span>
+      </div>
+      <div class="spec-block">
+        <div class="spec-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M9 1.5L16.5 9 9 16.5 1.5 9 9 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+            <path d="M9 5v8M5 9h8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="spec-title">M&amp;A Turnkey Identity</div>
+        <div class="spec-desc">When a holding acquires a new company, I manage the entire visual integration process end-to-end.</div>
+        <span class="spec-tag">Acquisitions</span>
+      </div>
+      <div class="spec-block">
+        <div class="spec-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M3 14l4-4 3 3 4-6 2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="1.5" y="1.5" width="15" height="15" rx="2" stroke="currentColor" stroke-width="1.4"/>
+          </svg>
+        </div>
+        <div class="spec-title">B2B Visual Communication</div>
+        <div class="spec-desc">Tenders, brochures, machinery graphics, web — wherever your brand touches the market, I make it consistent and professional.</div>
+        <span class="spec-tag">B2B · Industrial</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY WORK WITH ME -->
+<section class="why-section">
+  <div class="reveal">
+    <div class="section-label">Why work with me</div>
+    <h2 class="section-title">What sets me apart<br>from a typical designer.</h2>
+  </div>
+  <div class="why-intro reveal" style="transition-delay:.06s">
+    <p>Most designers handle one project at a time. I've operated inside a group with 1,000+ employees and dozens of companies — which means I understand how design decisions scale, break, and succeed at an organizational level.</p>
+  </div>
+
+  <div class="why-grid">
+    <div class="why-card reveal" style="transition-delay:.08s">
+      <div class="why-num">01</div>
+      <div class="why-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M10 2C5.58 2 2 5.58 2 10s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8z" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M10 6v4l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="why-title">Proven Scale</div>
+      <div class="why-desc">Experience representing a holding with <strong>1,000+ employees and massive physical assets</strong> — machinery, fleet, construction sites, corporate campuses.</div>
+    </div>
+
+    <div class="why-card reveal" style="transition-delay:.12s">
+      <div class="why-num">02</div>
+      <div class="why-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <rect x="2" y="5" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M6 5V4a4 4 0 018 0v1" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="10" cy="11" r="2" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="why-title">Industry Precision</div>
+      <div class="why-desc">I speak the language of <strong>construction, engineering, and infrastructure</strong> — from heavy machinery branding to formal technical tenders and regulatory documents.</div>
+    </div>
+
+    <div class="why-card reveal" style="transition-delay:.16s">
+      <div class="why-num">03</div>
+      <div class="why-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="why-title">Business-First Approach</div>
+      <div class="why-desc">I focus on how design <strong>supports trust-building and long-term business value</strong> in the B2B sector — not just what looks good on a screen.</div>
+    </div>
+  </div>
+</section>
+
+<!-- M&A TURNKEY FEATURE -->
+<section class="turnkey-section">
+  <div class="turnkey-inner">
+    <div class="turnkey-content reveal">
+      <div class="section-label">Specialized service</div>
+      <h2 class="turnkey-title">M&amp;A Turnkey<br><span class="acc">Identity Service</span></h2>
+      <p class="turnkey-desc">When a holding acquires a new company, visual integration is often an afterthought. I've made it a <strong>systematic, reliable process</strong> — delivering a complete, ready-to-use identity on key from day one.</p>
+      <a href="mailto:studio@matejrab.cz" class="turnkey-cta">
+        Inquire about this service
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="reveal" style="transition-delay:.1s">
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="process-step-num">01</div>
+          <div class="process-step-content">
+            <div class="process-step-title">Audit & Discovery</div>
+            <div class="process-step-desc">I map the acquired company's existing visual assets and align with the parent group's standards.</div>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-step-num">02</div>
+          <div class="process-step-content">
+            <div class="process-step-title">Identity Design</div>
+            <div class="process-step-desc">New logo, colour system, typography, and usage rules — fully coherent with the holding's identity.</div>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-step-num">03</div>
+          <div class="process-step-content">
+            <div class="process-step-title">Asset Production</div>
+            <div class="process-step-desc">All print, digital, signage, and vehicle templates — print-ready and production-optimised.</div>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-step-num">04</div>
+          <div class="process-step-content">
+            <div class="process-step-title">Handover on Key</div>
+            <div class="process-step-desc">Complete brand kit, guidelines, and source files — the new subsidiary is visually operational from day one.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAND -->
+<section class="stats-band">
+  <div class="stats-band-inner">
+    <div class="stat-col reveal">
+      <div class="stat-col-num">10B+</div>
+      <div class="stat-col-label">CZK Holding Turnover</div>
+      <div class="stat-col-sub">€400M+ annually</div>
+    </div>
+    <div class="stat-col reveal" style="transition-delay:.06s">
+      <div class="stat-col-num">1K+</div>
+      <div class="stat-col-label">Employees Served</div>
+      <div class="stat-col-sub">Across the group</div>
+    </div>
+    <div class="stat-col reveal" style="transition-delay:.12s">
+      <div class="stat-col-num">60+</div>
+      <div class="stat-col-label">Projects Delivered</div>
+      <div class="stat-col-sub">Brand to print to web</div>
+    </div>
+    <div class="stat-col reveal" style="transition-delay:.18s">
+      <div class="stat-col-num">4+</div>
+      <div class="stat-col-label">Years at Enteria</div>
+      <div class="stat-col-sub">Senior designer role</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="contact-section" id="contact">
+  <div class="contact-bg"></div>
+  <div class="section-label" style="justify-content:center;margin-bottom:14px;">Contact</div>
+  <div class="contact-big reveal">
+    Let's build<br><span class="outline">something.</span>
+  </div>
+  <a href="mailto:studio@matejrab.cz" class="contact-email reveal" style="transition-delay:.08s">
+    <svg width="17" height="17" viewBox="0 0 18 18" fill="none"><rect x="1" y="3.5" width="16" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M1 6l8 5 8-5" stroke="currentColor" stroke-width="1.5"/></svg>
+    studio@matejrab.cz
+  </a>
+  <p class="contact-sub" style="margin-top:20px;">I reply within 24 hours. Business language: Czech &amp; English.</p>
+</section>
+
+<footer>
+  <div class="f-logo">M<span>.</span>RÁB</div>
+  <div class="f-copy">© 2025 Matěj Ráb</div>
+  <div class="f-gradin">Part of <span>Gradin</span> creative group</div>
+</footer>
+
+<script>
+/* ── CURSOR ─────────────────────────────── */
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+if(window.matchMedia('(hover:hover)').matches){
+  document.body.classList.add('custom-cursor');
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX; my=e.clientY;
+    cur.style.left=mx-4+'px'; cur.style.top=my-4+'px';
+  });
+  (function animR(){
+    rx+=(mx-rx-16)*.12; ry+=(my-ry-16)*.12;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    requestAnimationFrame(animR);
+  })();
+  document.querySelectorAll('a,button,.why-card,.spec-block').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cur.style.transform='scale(2.5)';ring.style.transform='scale(1.6)';});
+    el.addEventListener('mouseleave',()=>{cur.style.transform='scale(1)';ring.style.transform='scale(1)';});
+  });
+}
+
+/* ── MOBILE NAV ─────────────────────────── */
+const burger=document.getElementById('burger');
+const mNav=document.getElementById('mobileNav');
+function toggleNav(){burger.classList.toggle('open');mNav.classList.toggle('open');document.body.style.overflow=mNav.classList.contains('open')?'hidden':'';}
+function closeNav(){burger.classList.remove('open');mNav.classList.remove('open');document.body.style.overflow='';}
+
+/* ── REVEAL ON SCROLL ───────────────────── */
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
