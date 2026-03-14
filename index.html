@@ -27,7 +27,8 @@
 /* ── RESET ───────────────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
-body{background:var(--bg);color:var(--text);font-family:var(--font-b);font-weight:300;line-height:1.6;overflow-x:hidden;cursor:none}
+body{background:var(--bg);color:var(--text);font-family:var(--font-b);font-weight:300;line-height:1.6;overflow-x:hidden}
+body.custom-cursor,body.custom-cursor *{cursor:none!important}
 img{display:block;max-width:100%}
 a{text-decoration:none;color:inherit}
 
@@ -160,7 +161,22 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:20px 48px;display:fl
 .card-zoom{position:absolute;top:12px;left:12px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.8);transition:opacity .3s,transform .3s;color:white}
 .work-card:hover .card-zoom{opacity:1;transform:scale(1)}
 
-/* ── LIGHTBOX ─────────────────────────────────────────── */
+/* ── CARD PLACEHOLDERS ────────────────── */
+.work-card img[src=""]{display:none}
+.work-card::after{content:attr(data-title);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:13px;font-weight:700;color:var(--muted2);letter-spacing:.05em;text-align:center;padding:24px;z-index:0}
+/* unique tinted backgrounds per card category */
+.work-card:nth-child(1){background:linear-gradient(135deg,#1a1a22 0%,#222230 100%)}
+.work-card:nth-child(2){background:linear-gradient(135deg,#1c1a22 0%,#211e2e 100%)}
+.work-card:nth-child(3){background:linear-gradient(135deg,#181e1a 0%,#1e2820 100%)}
+.work-card:nth-child(4){background:linear-gradient(135deg,#1e1c18 0%,#28261e 100%)}
+.work-card:nth-child(5){background:linear-gradient(135deg,#1a1c22 0%,#202230 100%)}
+.work-card:nth-child(6){background:linear-gradient(135deg,#1c1a1e 0%,#261e28 100%)}
+.work-card:nth-child(7){background:linear-gradient(135deg,#181a1e 0%,#1e2228 100%)}
+.work-card:nth-child(8){background:linear-gradient(135deg,#1e1a18 0%,#28221e 100%)}
+.work-card:nth-child(9){background:linear-gradient(135deg,#1a1e1a 0%,#222822 100%)}
+/* grid-cross decoration on placeholders */
+.work-card img[src=""] ~ .card-zoom{display:none}
+
 .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(20px)}
 .lightbox.open{opacity:1;pointer-events:all}
 .lightbox-inner{position:relative;display:flex;align-items:center;gap:18px;max-width:92vw}
@@ -222,7 +238,8 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
 .mobile-nav .lang-switch{gap:8px}
 .mobile-nav .lang-btn{font-size:13px;padding:9px 20px}
 
-[data-lang="en"] .cs-only{display:none}
+[data-lang="en"] .cs-only{display:none!important}
+[data-lang="cs"] .en-only{display:none!important}
 
 /* ── RESPONSIVE ───────────────────────────────────────── */
 @media (max-width:1024px){
@@ -278,7 +295,7 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
   <a href="#o-mne" onclick="closeNav()" class="en-only">About</a>
   <a href="#kontakt" onclick="closeNav()" class="cs-only">Kontakt</a>
   <a href="#kontakt" onclick="closeNav()" class="en-only">Contact</a>
-  <a href="mailto:studio@matejrab.cz" class="m-cta">studio@matejrab.cz</a>
+  <a href="/cdn-cgi/l/email-protection#6d1e19180904022d000c1908071f0c0f430e17" class="m-cta"><span class="__cf_email__" data-cfemail="96e5e2e3f2fff9d6fbf7e2f3fce4f7f4b8f5ec">[email&#160;protected]</span></a>
   <div class="lang-switch" style="margin-top:12px">
     <button class="lang-btn" data-l="cs" onclick="setLang('cs')">CZ</button>
     <button class="lang-btn" data-l="en" onclick="setLang('en')">EN</button>
@@ -667,19 +684,83 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
   <div class="f-gradin">Part of <span>Gradin</span> creative group</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* ── CURSOR ─────────────────────────────── */
 const cur = document.getElementById('cursor');
 const ring = document.getElementById('cursor-ring');
 let mx=0,my=0,rx=0,ry=0;
 if(window.matchMedia('(hover:hover)').matches){
-  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx-4+'px';cur.style.top=my-4+'px'});
-  (function animR(){rx+=(mx-rx-16)*.12;ry+=(my-ry-16)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animR)})();
-  document.querySelectorAll('a,button,.work-card,.lang-btn').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{cur.style.transform='scale(2.5)';ring.style.transform='scale(1.6)'});
-    el.addEventListener('mouseleave',()=>{cur.style.transform='scale(1)';ring.style.transform='scale(1)'});
+  document.body.classList.add('custom-cursor');
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX; my=e.clientY;
+    cur.style.left=mx-4+'px'; cur.style.top=my-4+'px';
   });
+  (function animR(){
+    rx+=(mx-rx-16)*.12; ry+=(my-ry-16)*.12;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    requestAnimationFrame(animR);
+  })();
+  function bindCursor(){
+    document.querySelectorAll('a,button,.work-card,.lang-btn,.stat-card,.skill-item').forEach(el=>{
+      el.removeEventListener('mouseenter',onEnter);
+      el.removeEventListener('mouseleave',onLeave);
+      el.addEventListener('mouseenter',onEnter);
+      el.addEventListener('mouseleave',onLeave);
+    });
+  }
+  function onEnter(){cur.style.transform='scale(2.5)';ring.style.transform='scale(1.6)';}
+  function onLeave(){cur.style.transform='scale(1)';ring.style.transform='scale(1)';}
+  bindCursor();
 }
+
+/* ── SVG PLACEHOLDERS ─────────────────── */
+const palettes=[
+  ['#1a1a26','#c8ff00'],['#1a1622','#7b61ff'],['#1a2018','#00e676'],
+  ['#22181a','#ff6b6b'],['#181a22','#c8ff00'],['#201a18','#ffc800'],
+  ['#181e20','#7b61ff'],['#1e1a20','#c8ff00'],['#1a2018','#a890ff'],
+  ['#221a1a','#c8ff00'],['#181822','#7b61ff'],['#1e2018','#00e676'],
+  ['#201a1a','#ffc800']
+];
+document.querySelectorAll('.work-card').forEach((card,i)=>{
+  const img=card.querySelector('img');
+  if(img && !img.src.replace(window.location.href,'').replace('#','').trim()){
+    img.style.display='none';
+    const [bg,ac]=palettes[i%palettes.length];
+    const title=(card.dataset.title||'').split('—');
+    const l1=(title[0]||'').trim();
+    const l2=(title[1]||'').trim();
+    // Build a nice placeholder with grid lines + label
+    const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 400 280" preserveAspectRatio="xMidYMid slice">
+      <rect width="400" height="280" fill="${bg}"/>
+      <!-- grid -->
+      <line x1="0" y1="70" x2="400" y2="70" stroke="${ac}" stroke-opacity=".07" stroke-width="1"/>
+      <line x1="0" y1="140" x2="400" y2="140" stroke="${ac}" stroke-opacity=".07" stroke-width="1"/>
+      <line x1="0" y1="210" x2="400" y2="210" stroke="${ac}" stroke-opacity=".07" stroke-width="1"/>
+      <line x1="100" y1="0" x2="100" y2="280" stroke="${ac}" stroke-opacity=".07" stroke-width="1"/>
+      <line x1="200" y1="0" x2="200" y2="280" stroke="${ac}" stroke-opacity=".07" stroke-width="1"/>
+      <line x1="300" y1="0" x2="300" y2="280" stroke="${ac}" stroke-opacity=".07" stroke-width="1"/>
+      <!-- corner crosshair TL -->
+      <line x1="24" y1="18" x2="36" y2="18" stroke="${ac}" stroke-opacity=".35" stroke-width="1"/>
+      <line x1="30" y1="12" x2="30" y2="24" stroke="${ac}" stroke-opacity=".35" stroke-width="1"/>
+      <!-- corner crosshair BR -->
+      <line x1="364" y1="262" x2="376" y2="262" stroke="${ac}" stroke-opacity=".35" stroke-width="1"/>
+      <line x1="370" y1="256" x2="370" y2="268" stroke="${ac}" stroke-opacity=".35" stroke-width="1"/>
+      <!-- accent dot -->
+      <circle cx="200" cy="120" r="28" fill="${ac}" fill-opacity=".06"/>
+      <circle cx="200" cy="120" r="2.5" fill="${ac}" fill-opacity=".5"/>
+      <!-- label -->
+      <text x="200" y="155" font-family="Syne,sans-serif" font-size="15" font-weight="700" fill="#f0efe8" fill-opacity=".8" text-anchor="middle">${l1}</text>
+      ${l2?`<text x="200" y="174" font-family="Syne,sans-serif" font-size="12" font-weight="400" fill="#f0efe8" fill-opacity=".35" text-anchor="middle">${l2}</text>`:''}
+    </svg>`;
+    const blob=new Blob([svg],{type:'image/svg+xml'});
+    const url=URL.createObjectURL(blob);
+    const newImg=document.createElement('img');
+    newImg.src=url;
+    newImg.alt=card.dataset.title||'';
+    newImg.style.cssText='width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(0.16,1,0.3,1)';
+    card.insertBefore(newImg,card.firstChild);
+  }
+});
 
 /* ── LANGUAGE ───────────────────────────── */
 function setLang(l){
@@ -687,16 +768,15 @@ function setLang(l){
   document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.l===l));
   localStorage.setItem('lang',l);
 }
-// init from storage or browser lang
 const saved=localStorage.getItem('lang');
-const browserLang=navigator.language.toLowerCase().startsWith('cs')?'cs':'en';
-setLang(saved||(browserLang==='cs'?'cs':'en'));
+const bLang=navigator.language.toLowerCase().startsWith('cs')?'cs':'en';
+setLang(saved||(bLang==='cs'?'cs':'en'));
 
 /* ── MOBILE NAV ─────────────────────────── */
 const burger=document.getElementById('burger');
 const mNav=document.getElementById('mobileNav');
-function toggleNav(){burger.classList.toggle('open');mNav.classList.toggle('open');document.body.style.overflow=mNav.classList.contains('open')?'hidden':''}
-function closeNav(){burger.classList.remove('open');mNav.classList.remove('open');document.body.style.overflow=''}
+function toggleNav(){burger.classList.toggle('open');mNav.classList.toggle('open');document.body.style.overflow=mNav.classList.contains('open')?'hidden':'';}
+function closeNav(){burger.classList.remove('open');mNav.classList.remove('open');document.body.style.overflow='';}
 
 /* ── LIGHTBOX ───────────────────────────── */
 const lb=document.getElementById('lightbox');
@@ -705,8 +785,32 @@ const lbTitle=document.getElementById('lb-title');
 const lbSub=document.getElementById('lb-sub');
 const lbCounter=document.getElementById('lb-counter');
 let idx=0;
-const cards=[...document.querySelectorAll('.work-card')];
-cards.forEach((c,i)=>c.addEventListener('click',()=>{idx=i;show(idx);lb.classList.add('open');document.body.style.overflow='hidden'}));
-function show(i){const c=cards[i];const im=c.querySelector('img');lbImg.src=im?im.src:'';lbTitle.textContent=c.dataset.title||'';lbSub.textContent=c.dataset.desc||'';lbCounter.textContent=(i+1)+' / '+cards.length}
-document.getElementById('lb-close').onclick=()=>{lb.classList.remove('open');document.body.style.overflow=''};
-lb.addEv
+const allCards=[...document.querySelectorAll('.work-card')];
+allCards.forEach((c,i)=>c.addEventListener('click',()=>{idx=i;showSlide(idx);lb.classList.add('open');document.body.style.overflow='hidden';}));
+function showSlide(i){
+  const c=allCards[i];
+  const im=c.querySelector('img');
+  lbImg.src=im?im.src:'';
+  lbTitle.textContent=c.dataset.title||'';
+  lbSub.textContent=c.dataset.desc||'';
+  lbCounter.textContent=(i+1)+' / '+allCards.length;
+}
+document.getElementById('lb-close').onclick=()=>{lb.classList.remove('open');document.body.style.overflow='';};
+lb.addEventListener('click',e=>{if(e.target===lb){lb.classList.remove('open');document.body.style.overflow='';}});
+document.getElementById('lb-prev').onclick=e=>{e.stopPropagation();idx=(idx-1+allCards.length)%allCards.length;showSlide(idx);};
+document.getElementById('lb-next').onclick=e=>{e.stopPropagation();idx=(idx+1)%allCards.length;showSlide(idx);};
+document.addEventListener('keydown',e=>{
+  if(!lb.classList.contains('open'))return;
+  if(e.key==='Escape'){lb.classList.remove('open');document.body.style.overflow='';}
+  if(e.key==='ArrowLeft'){idx=(idx-1+allCards.length)%allCards.length;showSlide(idx);}
+  if(e.key==='ArrowRight'){idx=(idx+1)%allCards.length;showSlide(idx);}
+});
+
+/* ── REVEAL ─────────────────────────────── */
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target);}});
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>
