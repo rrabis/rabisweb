@@ -163,7 +163,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:20px 48px;display:fl
 
 /* ── CARD PLACEHOLDERS ────────────────── */
 .work-card img[src=""]{display:none}
-.work-card::after{content:attr(data-title);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:13px;font-weight:700;color:var(--muted2);letter-spacing:.05em;text-align:center;padding:24px;z-index:0}
 /* unique tinted backgrounds per card category */
 .work-card:nth-child(1){background:linear-gradient(135deg,#1a1a22 0%,#222230 100%)}
 .work-card:nth-child(2){background:linear-gradient(135deg,#1c1a22 0%,#211e2e 100%)}
@@ -282,7 +281,7 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
 }
 </style>
 </head>
-<body data-lang="en">
+<body data-lang="cs">
 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursor-ring"></div>
@@ -295,7 +294,7 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
   <a href="#o-mne" onclick="closeNav()" class="en-only">About</a>
   <a href="#kontakt" onclick="closeNav()" class="cs-only">Kontakt</a>
   <a href="#kontakt" onclick="closeNav()" class="en-only">Contact</a>
-  <a href="/cdn-cgi/l/email-protection#6d1e19180904022d000c1908071f0c0f430e17" class="m-cta"><span class="__cf_email__" data-cfemail="96e5e2e3f2fff9d6fbf7e2f3fce4f7f4b8f5ec">[email&#160;protected]</span></a>
+  <a href="mailto:studio@matejrab.cz" class="m-cta">studio@matejrab.cz</a>
   <div class="lang-switch" style="margin-top:12px">
     <button class="lang-btn" data-l="cs" onclick="setLang('cs')">CZ</button>
     <button class="lang-btn" data-l="en" onclick="setLang('en')">EN</button>
@@ -331,11 +330,11 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
   </ul>
   <div class="nav-right">
     <div class="lang-switch">
-      <button class="lang-btn" data-l="cs" onclick="setLang('cs')">CZ</button>
-      <button class="lang-btn active" data-l="en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn active" data-l="cs" onclick="setLang('cs')">CZ</button>
+      <button class="lang-btn" data-l="en" onclick="setLang('en')">EN</button>
     </div>
-    <a href="/cdn-cgi/l/email-protection#b9cacdccddd0d6f9d4d8cddcd3cbd8db97dac3" class="nav-cta cs-only">Napište mi</a>
-    <a href="/cdn-cgi/l/email-protection#f6858283929f99b69b9782939c849794d8958c" class="nav-cta en-only">Let's talk</a>
+    <a href="mailto:studio@matejrab.cz" class="nav-cta cs-only">Napište mi</a>
+    <a href="mailto:studio@matejrab.cz" class="nav-cta en-only">Let's talk</a>
   </div>
   <button class="nav-burger" id="burger" onclick="toggleNav()">
     <span></span><span></span><span></span>
@@ -368,8 +367,8 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
     <div class="hero-actions">
       <a href="#portfolio" class="btn-p cs-only">Zobrazit práce</a>
       <a href="#portfolio" class="btn-p en-only">View work</a>
-      <a href="/cdn-cgi/l/email-protection#77040302131e18371a1603121d05161559140d" class="btn-g">
-        <span class="__cf_email__" data-cfemail="2a595e5f4e43456a474b5e4f40584b48044950">[email&#160;protected]</span>
+      <a href="mailto:studio@matejrab.cz" class="btn-g">
+        studio@matejrab.cz
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
@@ -604,12 +603,12 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
       <div class="about-text cs-only">
         <p>Jsem grafický designer z České republiky. Pracuji jako <strong>kmenový grafik v Enterii</strong>, stavebním holdingu, kde mám na starosti vizuální komunikaci celé skupiny — od brožur přes outdoor kampaně až po event grafiku v enteria aréně.</p>
         <p>Vedle toho jsem součástí kreativní skupiny <strong>Gradin</strong>, kde s kamarády tvoříme grafiku pro firmy, sportovní kluby, dokumentární filmy i obchodní centra.</p>
-        <p>Na <strong>vedlejší činnost</strong> přijímám zakázkovou grafiku — logo, web, identita, tiskoviny. Nebojte se napsat na <a href="/cdn-cgi/l/email-protection#7a090e0f1e13153a171b0e1f10081b18541900" style="color:var(--acid)"><span class="__cf_email__" data-cfemail="97e4e3e2f3fef8d7faf6e3f2fde5f6f5b9f4ed">[email&#160;protected]</span></a></p>
+        studio@matejrab.cz
       </div>
       <div class="about-text en-only">
         <p>I'm a brand and visual designer based in the Czech Republic. Since 2021 I work as <strong>senior in-house designer at Enteria</strong>, a construction holding group, where I own the visual communication of the entire group — brochures, outdoor campaigns, event graphics, web.</p>
         <p>I'm also part of the creative collective <strong>Gradin</strong>, building identities for sports clubs, documentary films and commercial centres.</p>
-        <p>I take on <strong>freelance projects</strong> through my studio — logo, brand identity, web design, print. Feel free to reach out at <a href="/cdn-cgi/l/email-protection#56252223323f39163b3722333c24373478352c" style="color:var(--acid)"><span class="__cf_email__" data-cfemail="8efdfafbeae7e1cee3effaebe4fcefeca0edf4">[email&#160;protected]</span></a></p>
+        studio@matejrab.cz
       </div>
       <div class="exp-list">
         <div class="exp-item">
@@ -630,7 +629,7 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
           <div class="exp-year">Ongoing</div>
           <div>
             <div class="exp-role">Freelance Designer</div>
-            <div class="exp-co"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a5d6d1d0c1cccae5c8c4d1c0cfd7c4c78bc6df">[email&#160;protected]</a></div>
+        studio@matejrab.cz
           </div>
         </div>
       </div>
@@ -661,9 +660,9 @@ footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify
     <span class="cs-only">Pojďme<br><span class="outline">spolupracovat</span></span>
     <span class="en-only">Let's build<br><span class="outline">something.</span></span>
   </div>
-  <a href="/cdn-cgi/l/email-protection#1e6d6a6b7a77715e737f6a7b746c7f7c307d64" class="contact-email reveal">
+  <a href="mailto:studio@matejrab.cz" class="contact-email reveal">
     <svg width="17" height="17" viewBox="0 0 18 18" fill="none"><rect x="1" y="3.5" width="16" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M1 6l8 5 8-5" stroke="currentColor" stroke-width="1.5"/></svg>
-    <span class="__cf_email__" data-cfemail="c6b5b2b3a2afa986aba7b2a3acb4a7a4e8a5bc">[email&#160;protected]</span>
+        studio@matejrab.cz
   </a>
   <p class="contact-sub cs-only" style="margin-top:20px;color:var(--muted);font-size:13px;">Odpovídám do 24 hodin.</p>
   <p class="contact-sub en-only" style="margin-top:20px;color:var(--muted);font-size:13px;">I reply within 24 hours. Business language: Czech &amp; English.</p>
@@ -739,9 +738,7 @@ document.querySelectorAll('.work-card').forEach((card,i)=>{
       <!-- accent dot -->
       <circle cx="200" cy="120" r="28" fill="${ac}" fill-opacity=".06"/>
       <circle cx="200" cy="120" r="2.5" fill="${ac}" fill-opacity=".5"/>
-      <!-- label -->
-      <text x="200" y="155" font-family="Syne,sans-serif" font-size="15" font-weight="700" fill="#f0efe8" fill-opacity=".8" text-anchor="middle">${l1}</text>
-      ${l2?`<text x="200" y="174" font-family="Syne,sans-serif" font-size="12" font-weight="400" fill="#f0efe8" fill-opacity=".35" text-anchor="middle">${l2}</text>`:''}
+
     </svg>`;
     const blob=new Blob([svg],{type:'image/svg+xml'});
     const url=URL.createObjectURL(blob);
@@ -760,8 +757,7 @@ function setLang(l){
   localStorage.setItem('lang',l);
 }
 const saved=localStorage.getItem('lang');
-const bLang=navigator.language.toLowerCase().startsWith('cs')?'cs':'en';
-setLang(saved||(bLang==='cs'?'cs':'en'));
+setLang(saved || 'cs');
 
 /* ── MOBILE NAV ─────────────────────────── */
 const burger=document.getElementById('burger');
